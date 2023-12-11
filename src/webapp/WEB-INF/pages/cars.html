@@ -1,0 +1,21 @@
+<table class="table table-dark">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Model</th>
+            <th scope="col">Series</th>
+        </tr>
+    </thead>
+    <tbody>
+    <tr th:each="car: ${list}">
+        <td th:text="${car.id}"/>
+        <td th:text="${car.model}"/>
+        <td th:text="${car.series}"/>
+    </tr>
+    <tr th:each="car: ${listByCount}">
+        <td th:text="${car.id}"/>
+        <td th:text="${car.model}"/>
+        <td th:text="${car.series}"/>
+    </tr>
+    </tbody>
+</table>
