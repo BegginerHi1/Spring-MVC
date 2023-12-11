@@ -2,25 +2,23 @@ package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import web.Model.Car;
 import web.Service.CarService;
 import web.Service.CarServiceImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
+@RequestMapping("/cars")
 public class CarController {
-    CarService carService = new CarServiceImpl();
-    List<Car> list = CarServiceImpl.getCarList();
+    private CarService carService = new CarServiceImpl();
+    private List<Car> list = CarServiceImpl.getCarList();
 
-    @GetMapping("/cars")
-    public String Cars(ModelMap modelMap, HttpServletRequest request) {
+    @GetMapping
+    public String Cars(Model model, HttpServletRequest request) {
         int count = 0;
         try {
             count = Integer.parseInt(request.getParameter("count"));
@@ -28,12 +26,11 @@ public class CarController {
             e.getCause();
         }
         if (count == 0) {
-            modelMap.addAttribute("list",list);
+            model.addAttribute("list", list);
         } else {
-            List<Car> listByCount = carService.listByCount(list,count);
-            modelMap.addAttribute("listByCount",listByCount);
+            List<Car> listByCount = carService.listByCount(list, count);
+            model.addAttribute("listByCount", listByCount);
         }
         return "cars";
     }
-
 }
